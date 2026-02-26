@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Lightbulb, Save } from 'lucide-react'
 
 const Search = () => {
+
+  const [activeTab, setActiveTab] = useState("All");
+
   return (
     <div className='space-y-6'>
       <div className='bg-white rounded-xl p-6 border border-gray-200 shadow-sm'>
@@ -12,12 +15,21 @@ const Search = () => {
             Search
           </button>
         </div>
-          <div className='flex gap-2 flex-wrap'>
-            <button className='bg-blue-600 text-white px-4 py-2 rounded-lg font-medium transition-all'>All</button>
-            <button  className='bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium transition-all'>Article</button>
-            <button  className='bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium transition-all'>Video</button>
-            <button  className='bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium transition-all'>Research</button>
-          </div>
+        <div className='flex gap-2 flex-wrap'>
+          {["All", "Article", "Video", "Research"].map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                activeTab === tab
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-100 hover:bg-gray-200 text-gray-700"
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className='space-y-4'>

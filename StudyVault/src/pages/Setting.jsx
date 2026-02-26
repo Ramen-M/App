@@ -1,7 +1,7 @@
 import React from 'react'
 import { Download } from 'lucide-react'
 
-const Setting = () => {
+const Setting = ({ durations, setDurations }) => {
   return (
     <div className='spcae-y-6'>
       <div className='bg-white border border-gray-200 shadow-sm rounded-xl p-6'>
@@ -31,27 +31,51 @@ const Setting = () => {
             <div className='space-y-3'>
               <div className='bg-gray-50 p-4 rounded-lg flex items-center justify-between'>
                 <span className='font-medium'>Work Duration</span>
-                <select className='border-2 border-gray-300 px-3 py-2 rounded-lg'>
-                  <option>25 minutes</option>
-                  <option>30 minutes</option>
-                  <option>45 minutes</option>
-                  <option>60 minutes</option>
+                <select
+                  value={durations.work}
+                  onChange={(e) =>
+                    setDurations(prev => ({
+                      ...prev,
+                      work: Number(e.target.value),
+                    }))
+                  }
+                  className='border-2 border-gray-300 px-3 py-2 rounded-lg'>
+                  <option value={25}>25 minutes</option>
+                  <option value={30}>30 minutes</option>
+                  <option value={45}>45 minutes</option>
+                  <option value={60}>60 minutes</option>
                 </select>
               </div>
               <div className='bg-gray-50 p-4 rounded-lg flex items-center justify-between'>
                 <span className='font-medium'>Short Break</span>
-                <select className='border-2 border-gray-300 px-3 py-2 rounded-lg'>
-                  <option>5 minutes</option>
-                  <option>10 minutes</option>
-                  <option>15 minutes</option>
+                <select 
+                  value={durations.shortBreak}
+                  onChange={(e) =>
+                    setDurations(prev => ({
+                      ...prev,
+                      shortBreak: Number(e.target.value),
+                    }))
+                  }
+                  className='border-2 border-gray-300 px-3 py-2 rounded-lg'>
+                  <option value={5}>5 minutes</option>
+                  <option value={10}>10 minutes</option>
+                  <option value={15}>15 minutes</option>
                 </select>
               </div>
               <div className='bg-gray-50 p-4 rounded-lg flex items-center justify-between'>
                 <span className='font-medium'>Long Break</span>
-                <select className='border-2 border-gray-300 px-3 py-2 rounded-lg'>
-                  <option>15 minutes</option>
-                  <option>20 minutes</option>
-                  <option>30 minutes</option>
+                <select
+                  value={durations.longBreak}
+                  onChange={(e) =>
+                    setDurations(prev => ({
+                      ...prev,
+                      longBreak: Number(e.target.value),
+                    }))
+                  }
+                  className='border-2 border-gray-300 px-3 py-2 rounded-lg'>
+                  <option value={15}>15 minutes</option>
+                  <option value={20}>20 minutes</option>
+                  <option value={30}>30 minutes</option>
                 </select>
               </div>
             </div>
