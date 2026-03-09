@@ -5,14 +5,14 @@ const QuickStats = () => {
   return (
     <div>
       {/* Quick Stats */}
-      <div className='grid grid-cols-4 gap-4'>
-          <div className='bg-white rounded-xl p-6 shadow-sm border border-gray-200'>
+      <div className='grid grid-cols-3 gap-4'>
+          {/*<div className='bg-white rounded-xl p-6 shadow-sm border border-gray-200'>
             <div className='flex items-center justify-between mb-2'>
               <Search className='text-blue-600' size={24}/>
               <p className='text-2xl font-bold text-gray-800'>0</p>
             </div>
             <p className='text-sm text-gray-600'>Searches</p>
-          </div>
+          </div>*/}
           <div className='bg-white rounded-xl p-6 shadow-sm border border-gray-200'>
             <div className='flex items-center justify-between mb-2'>
               <CheckCircle className='text-green-600' size={24}/>

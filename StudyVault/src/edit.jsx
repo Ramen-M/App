@@ -1,55 +1,14 @@
 import React, { useState } from 'react'
-import { Target, Pencil, Check, Settings, X } from 'lucide-react'
+import { Target, Settings, X } from 'lucide-react'
 
-const GoalRow = ({ label, current, goal, color, onGoalChange }) => {
-  const [editing, setEditing] = useState(false)
-  const [inputVal, setInputVal] = useState(goal)
-
+const GoalRow = ({ label, current, goal, color }) => {
   const progress = goal > 0 ? Math.min((current / goal) * 100, 100) : 0
-
-  const handleConfirm = () => {
-    const parsed = parseInt(inputVal)
-    if (!isNaN(parsed) && parsed > 0) {
-      onGoalChange(parsed)
-    } else {
-      setInputVal(goal)
-    }
-    setEditing(false)
-  }
 
   return (
     <div className='space-y-1'>
       <div className='flex justify-between items-center mb-1'>
         <span className='text-sm font-medium text-gray-700'>{label}</span>
-        <div className='flex items-center gap-1'>
-          <span className='text-sm text-gray-700'>{current}/</span>
-          {editing ? (
-            <>
-              <input
-                type='number'
-                min='1'
-                value={inputVal}
-                onChange={e => setInputVal(e.target.value)}
-                onKeyDown={e => e.key === 'Enter' && handleConfirm()}
-                className='w-12 text-sm border border-blue-400 rounded px-1 text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500'
-                autoFocus
-              />
-              <button onClick={handleConfirm} className='text-blue-600 hover:text-blue-800 ml-1'>
-                <Check size={14} />
-              </button>
-            </>
-          ) : (
-            <>
-              <span className='text-sm text-gray-700'>{goal}</span>
-              <button
-                onClick={() => { setInputVal(goal); setEditing(true) }}
-                className='text-gray-400 hover:text-blue-600 ml-1 transition-colors'
-              >
-                <Pencil size={12} />
-              </button>
-            </>
-          )}
-        </div>
+        <span className='text-sm text-gray-700'>{current}/{goal}</span>
       </div>
       <div className='w-full bg-gray-200 rounded-full h-2'>
         <div
@@ -75,11 +34,7 @@ const EditGoalsModal = ({ goals, onClose, onSave }) => {
   }
 
   const handleSubmit = () => {
-    const parsed = { 
-      1: parseInt(values[1]),
-      2: parseInt(values[2]),
-      3: parseInt(values[3])
-    }
+    const parsed = { 1: parseInt(values[1]), 2: parseInt(values[2]), 3: parseInt(values[3]) }
     if (Object.values(parsed).some(v => !v || v <= 0)) {
       return setError('Please enter valid numbers for all fields.')
     }
@@ -93,8 +48,6 @@ const EditGoalsModal = ({ goals, onClose, onSave }) => {
     { id: 3, label: 'Study Hours', accent: 'focus:ring-blue-400', dot: 'bg-blue-400' },
   ]
 
-
-  { /*Daily Goals popup*/ }
   return (
     <div className='fixed inset-0 z-50 flex items-center justify-center'>
       <div className='absolute inset-0 bg-black bg-opacity-30 backdrop-blur-sm' onClick={onClose} />
@@ -150,17 +103,13 @@ const EditGoalsModal = ({ goals, onClose, onSave }) => {
   )
 }
 
-const Edit = () => {
+const DailyGoals = () => {
   const [goals, setGoals] = useState([
     { id: 1, label: 'Pomodoros', current: 0, goal: 8, color: 'bg-red-400' },
     { id: 2, label: 'Tasks Completed', current: 0, goal: 8, color: 'bg-green-400' },
     { id: 3, label: 'Study Hours', current: 0, goal: 8, color: 'bg-blue-400' },
   ])
   const [showModal, setShowModal] = useState(false)
-
-  const handleGoalChange = (id, val) => {
-    setGoals(prev => prev.map(g => g.id === id ? { ...g, goal: val } : g))
-  }
 
   const handleSaveAll = (parsed) => {
     setGoals(prev => prev.map(g => ({ ...g, goal: parsed[g.id] ?? g.goal })))
@@ -199,7 +148,6 @@ const Edit = () => {
               current={g.current}
               goal={g.goal}
               color={g.color}
-              onGoalChange={val => handleGoalChange(g.id, val)}
             />
           ))}
         </div>
@@ -208,4 +156,4 @@ const Edit = () => {
   )
 }
 
-export default Edit
+export default DailyGoals

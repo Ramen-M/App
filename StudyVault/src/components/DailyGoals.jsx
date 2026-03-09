@@ -2,6 +2,26 @@ import React, { useState } from 'react'
 import { Target, Settings, X } from 'lucide-react'
 import Edit from '../edit'
 
+const GoalRow  = ({label, current, goal, color}) => {
+
+  const progress = goal > 0 ? Math.min((current / goal) * 100, 100) : 0
+
+  return (
+    <div className='space-y-1'>
+      <div className='flex justify-between items-center mb-2'>
+        <span className='text-sm font-medium text-gray-700'>{label}</span>
+        <span className='text-sm text-gray-700'>{current} / {goal}</span>
+      </div>
+      <div className='w-full bg-gray-200 rounded-full h-2'>
+        <div
+          className={`h-2 rounded-full transition-all duration-500 ${color}`}
+          style={{width: `${progress}%` }}
+        />
+      </div>
+    </div>
+  )
+}
+
 const EditGoalsModal = ({ goals, onClose, onSave }) => {
 
   const [values, setValues] = useState({
@@ -98,10 +118,6 @@ const DailyGoals = () => {
 
   const [showModal, setShowModal] = useState(false);
 
-  const handleGoalChange = (id, val) => {
-    setGoals(prev => prev.map(g => g.id === id ? { ...g, goal: val} : g))
-  }
-
   const handleSaveAll = (parsed) => {
     setGoals(prev => prev.map(g => ({ ...g, goal: parsed[g.id] ?? g.goal})))
   }
@@ -132,28 +148,17 @@ const DailyGoals = () => {
             Edit Goals
           </button>
         </div>
+
         <div className='space-y-4'>
-          <div className='flex justify-between mb-2'>
-            <span className='text-sm font-medium text-gray-700'>Pomodoros</span>
-            <span className='text-sm text-gray-700'>0/8</span>
-          </div>
-          <div className='w-full bg-gray-200 rounded-full h-2'>
-            <div className='border-none'></div>
-          </div>
-          <div className='flex justify-between mb-2'>
-            <span className='text-sm font-medium text-gray-700'>Task Completed</span>
-            <span className='text-sm text-gray-700'>0/8</span>
-          </div>
-          <div className='w-full bg-gray-200 rounded-full h-2'>
-            <div className='border-none'></div>
-          </div>
-          <div className='flex justify-between mb-2'>
-            <span className='text-sm font-medium text-gray-700'>Study Hours</span>
-            <span className='text-sm text-gray-700'>0/8</span>
-          </div>
-          <div className='w-full bg-gray-200 rounded-full h-2'>
-            <div className='border-none'></div>
-          </div>
+          {goals.map(g => (
+            <GoalRow
+              key={g.id}
+              label={g.label}
+              current={g.current}
+              goal={g.goal}
+              color={g.color}
+            />
+          ))}
         </div>
       </div>
     </div>
