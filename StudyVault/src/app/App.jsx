@@ -1,15 +1,14 @@
 import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 
-import Navbar from './components/Navbar'
-import Home from './pages/Home'
-import Search from './pages/Search'
-import Library from './pages/Library'
-import Flashcards from './pages/Flashcards'
-import Tasktracker from './pages/Tasktracker'
-import Notes from './pages/Notes'
-import Setting from './pages/Setting'
-import './App.css'
+import Navbar from '../shared/components/Navbar'
+import Home from '../features/dashboard/pages/Home'
+import Search from '../pages/Search'
+import Library from '../pages/Library'
+import Flashcards from '../features/flashcards/pages/Flashcards'
+import Tasktracker from '../features/tasks/pages/Tasktracker'
+import Notes from '../features/notes/pages/Notes'
+import Setting from '../features/settings/pages/Setting'
 
 function App() {
 
@@ -25,8 +24,8 @@ function App() {
       <div className='max-w-7xl mx-auto p-6'>
         <Routes>
           <Route path="/" element={<Home durations={durations} />}/>
-          <Route path="/search" element={<Search />}/>
-          <Route path="/library" element={<Library />}/>
+          {/*<Route path="/search" element={<Search />}/>
+          <Route path="/library" element={<Library />}/>*/}
           <Route path="/flashcards" element={<Flashcards />}/>
           <Route path="/tasks" element={<Tasktracker />}/>
           <Route path="/notes" element={<Notes />}/>
