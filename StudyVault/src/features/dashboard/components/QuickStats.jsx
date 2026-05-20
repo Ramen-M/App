@@ -30,7 +30,7 @@ const QuickStats = () => {
           <div className='bg-white rounded-xl p-6 shadow-sm border border-gray-200'>
             <div className='flex items-center justify-between mb-2'>
               <Brain className='text-purple-600' size={24}/>
-              <p className='text-2xl font-bold text-gray-800'>0</p>
+              <p className='text-2xl font-bold text-gray-800'>0/0</p>
             </div>
             <p className='text-sm text-gray-600'>Flashcards</p>
           </div>
